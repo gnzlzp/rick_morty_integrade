@@ -1,4 +1,5 @@
 import { ADD_FAVORITE, FILTER ,ORDER, REMOVE_FAVORITE } from "./actions";
+const axios = require("axios");
 
 const initialState = {
 	myFavorites: [],
@@ -8,10 +9,10 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case ADD_FAVORITE:
-			return {
-				...state,
-				myFavorites: [...state.myFavorites, action.payload],
-			};
+			return axios.post('http://localhost:3001/rickandmorty/fav ',()=>{})
+				// ...state,
+				// myFavorites: [...state.myFavorites, action.payload],
+			;
 		case REMOVE_FAVORITE:
 			return {
 				...state,

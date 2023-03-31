@@ -74,6 +74,7 @@ function Card({
 				<p>
 					<span>	<b>Genero: </b>	</span>	{gender}
 				</p>
+				
 		</div>
 	);
 }

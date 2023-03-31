@@ -37,7 +37,7 @@ function App() {
 		// const KEY = "7a644210607c.971278a39c02b9832700";
 		// fetch(`${URL_BASE}/character/${id}/?key=${KEY}`)
 		fetch(`http://localhost:3002/rickandmorty/onSearch/${id}`)
-			.then((response) => response.json())
+		.then((response) => response.json())
 			.then((data) => {
 				if (data.name)
 					if (characters.find((char) => char.id == data.id)) {
