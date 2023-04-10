@@ -1,123 +1,108 @@
-import {RiDeleteBin2Line} from "react-icons/ri"
-import style from "./Card.module.css"
+import { RiDeleteBin2Line } from "react-icons/ri";
+import style from "./Card.module.css";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { addFavorite,removeFavorite } from "../../redux/actions";
+import { addFavorite, removeFavorite } from "../../redux/actions";
 
-
-function Card({ 
-	id, 
-	name, 
-	species, 
-	gender, 
-	image, 
-	onClose, 
-	addFavorite, 
-	removeFavorite,
-	myFavorites 
+function Card({
+	id,
+	name,
+	species,
+	gender,
+	image,
+	onClose,
+	addFavorite, // esto es la actions que se recibe en el mapDispatchToProps
+	removeFavorite, // esto es la actions que se recibe en el mapDispatchToProps
+	myFavorites,
 }) {
+	const [isFav, setIsFav] = useState(false);
 
-	const [isFav, setIsFav] = useState(false)
-
-	
-	const handleFavorite=()=>{
-		if(isFav === true){
-			setIsFav(false)
-			removeFavorite(id)
+	const handleFavorite = () => {
+		if (isFav === true) {
+			setIsFav(false);
+			removeFavorite(id);
 		}
-		if(isFav === false){
-			setIsFav(true)
-			addFavorite({ id, name, species, gender, image, onClose, addFavorite})
+		if (isFav === false) {
+			setIsFav(true);
+			addFavorite({ id, name, species, gender, image, onClose, addFavorite });
 		}
-	}
+	};
 
 	useEffect(() => {
-		//quiero limpiar el input de searchBar
-
-
 		myFavorites.forEach((fav) => {
-		   if (fav.id === id) {
-			  setIsFav(true);
-		   }
+			if (fav.id === id) {
+				setIsFav(true);
+			}
 		});
-	 }, [myFavorites]);
+	}, [myFavorites]);
+	const { pathname } = useLocation();
 
 	return (
 		<div className={style.divCard}>
-			
-			{
-			isFav ? ( <button className={style.btnTrash} onClick={handleFavorite}>❤️</button> ) :
-			( <button className={style.btnTrash} onClick={handleFavorite}>🤍</button> )
-			}
-			
-			{
-				!isFav &&
-			<button className={style.btnTrash}
-				onClick={() => {onClose(id)	}}>	<RiDeleteBin2Line/>	
-			</button>
-}
+			{isFav ? (
+				<button className={style.btnTrash} onClick={handleFavorite}>
+					❤️
+				</button>
+			) : (
+				<button className={style.btnTrash} onClick={handleFavorite}>
+					🤍
+				</button>
+			)}
 
+			{pathname !== "/favorites" && (
+				<button
+					className={style.btnTrash}
+					onClick={() => {
+						onClose(id);
+					}}
+				>
+					{" "}
+					<RiDeleteBin2Line />
+				</button>
+			)}
 			<br />
-			
 			<Link to={`/detail/${id}`}>
 				<img src={image} alt={name} />
 			</Link>
-				<p>
-					<span> 	<b>Nombre: </b>	</span>	{name}
-				</p>
-			
-				<p>
-					<span>	<b>Raza: </b>	</span>	{species}
-				</p>
-			
-				<p>
-					<span>	<b>Genero: </b>	</span>	{gender}
-				</p>
-				
+			<p>
+				<span>
+					{" "}
+					<b>Nombre: </b>{" "}
+				</span>{" "}
+				{name}
+			</p>
+			<p>
+				<span>
+					{" "}
+					<b>Raza: </b>{" "}
+				</span>{" "}
+				{species}
+			</p>
+			<p>
+				<span>
+					{" "}
+					<b>Genero: </b>{" "}
+				</span>{" "}
+				{gender}
+			</p>
 		</div>
 	);
 }
-const mapDispatchToProps=(dispatch)=>{
-	return{
-		addFavorite:(character)=>{dispatch(addFavorite(character))},
-		removeFavorite:(id)=>{dispatch(removeFavorite(id))}
-	}
-}
-const mapStateToProps =(state) => {
+const mapDispatchToProps = (dispatch) => {
 	return {
-		myFavorites : state.myFavorites,
-	
-	}
-}
+		addFavorite: (character) => {
+			dispatch(addFavorite(character));
+		},
+		removeFavorite: (id) => {
+			dispatch(removeFavorite(id));
+		},
+	};
+};
+const mapStateToProps = (state) => {
+	return {
+		myFavorites: state.myFavorites,
+	};
+};
 
-
-export default connect(mapStateToProps,mapDispatchToProps)(Card)
-// export default Card
-
-
-
-
-
-/*********************************************************************************** */
-// import React, { Component } from "react";
-
-// class Card extends Component {
-// 	constructor(props) {
-// 		super(props);
-// 	}
-// 	render() {
-//       const { name, species, gender, image, onClose } = this.props
-// 		return (
-// 			<div>
-// 				<button onClick={onClose}>X</button>
-// 				<h2>{name}</h2>
-// 				<h2>{species}</h2>
-// 				<h2>{gender}</h2>
-// 				<img src={image} alt={name} />
-// 			</div>
-// 		);
-// 	}
-// }
-
-// export default Card;
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

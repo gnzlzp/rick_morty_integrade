@@ -14,7 +14,7 @@ router.post("/fav", (req, res) => {
 	res.status(200).send("Personaje agregado");
 });
 router.get("/fav", (req, res) => {
-	res.status(200).json(favs);
+	res.status(400).json(favs);
 });
 
 module.exports = router;

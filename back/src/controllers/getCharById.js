@@ -8,8 +8,8 @@ const getCharById = (req, res) => {
 		const character = personaje.data;
 		if (!character.id) res.status(400).json({ error: error.message })
 		
-		const { id, name, species, image, gender } = personaje.data;
-		res.status(200).json({ id, name, species, image, gender });
+		const { id, name, species, image, gender} = personaje.data;
+		res.status(200).json({ id, name, species, image, gender});
 	});
 };
 
