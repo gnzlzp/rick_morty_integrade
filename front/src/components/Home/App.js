@@ -44,7 +44,7 @@ function App() {
 		if (characters.find((char) => char.id === id)) {
 			return alert("Personaje repetido");
 		}
-		fetch(`http://api-rickandmorty.up.railway.app/rickandmorty/onSearch/${id}`)
+		fetch(`https://api-rickandmorty.up.railway.app/rickandmorty/onSearch/${id}`)
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.name)

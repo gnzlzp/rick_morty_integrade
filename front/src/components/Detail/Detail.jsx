@@ -11,7 +11,7 @@ export const Detail = () => {
 		// const URL_BASE = "https://be-a-rym.up.railway.app/api";
 		// const KEY = "7a644210607c.971278a39c02b9832700";
 		// fetch(`${URL_BASE}/character/${detailId}?key=${KEY}`)
-		fetch(`http://api-rickandmorty.up.railway.app/rickandmorty/detail/${detailId}`)
+		fetch(`https://api-rickandmorty.up.railway.app/rickandmorty/detail/${detailId}`)
 			.then((response) => response.json())
 			.then((char) => {
 				if (char.name) {
