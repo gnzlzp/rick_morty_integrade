@@ -7,7 +7,7 @@ const router = require("./routes/index");
 require("dotenv").config();
 
 const PORT = process.env.PGPORT || 3002;
-server.use(cors())
+server.use(cors('Access-Control-Allow-Origin',("*")))
 server.use(morgan("dev"));
 server.use(express.json());
 server.use("/rickandmorty", router);
