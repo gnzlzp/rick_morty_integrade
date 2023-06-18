@@ -1,19 +1,24 @@
 const express = require("express");
 const server = express();
-const cors = require('cors')
+const cors = require('cors');
 const morgan = require("morgan");
 const router = require("./routes/index");
 require("dotenv").config();
 
 const PORT = process.env.PGPORT || 3002;
 
-server.use(cors({
-  origin: 'https://rick-morty-integrade.vercel.app',
-  optionsSuccessStatus: 200
-}));
+server.use(cors());
 server.use(morgan("dev"));
 server.use(express.json());
 server.use("/rickandmorty", router);
+
+// Configurar los encabezados de respuesta para CORS
+server.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://rick-morty-integrade.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 server.listen(PORT, () => {
   console.log("Server raised on port ", PORT);
