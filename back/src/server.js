@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const PORT = process.env.PGPORT || 3002;
 
+server.use(express.json());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -15,9 +16,6 @@ server.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
-server.use(express.json());
-// Configurar los encabezados de respuesta para CORS
 server.use("/rickandmorty", router);
 server.listen(PORT, () => {
   console.log("Server raised on port ", PORT);
