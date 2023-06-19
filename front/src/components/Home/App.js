@@ -56,6 +56,9 @@ function App() {
 				else {
 					alert("No hay personajes con ese ID");
 				}
+			})
+			.catch((error) => {
+				console.error('Error:', error);
 			});
 	};
 
