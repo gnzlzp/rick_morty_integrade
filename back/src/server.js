@@ -10,7 +10,7 @@ const PORT = process.env.PGPORT || 3002;
 server.use(express.json());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://rick-morty-integrade.vercel.app");
+  res.header("Access-Control-Allow-Origin", "https://rick-morty-integrade.vercel.app/home");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
