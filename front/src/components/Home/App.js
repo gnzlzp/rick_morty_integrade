@@ -44,23 +44,26 @@ function App() {
 		if (characters.find((char) => char.id === id)) {
 			return alert("Personaje repetido");
 		}
+	
 		fetch(`https://api-rickandmorty.up.railway.app/rickandmorty/onSearch/${id}`)
+		// fetch(`http://localhost:3002/rickandmorty/onSearch/${id}`)
 			.then((response) => response.json())
 			.then((data) => {
-				if (data.name)
-					if (characters.find((char) => char.id == data.id)) {
-						return alert("Personaje repetido");
+				if (data.name) {
+					if (characters.find((char) => char.id === data.id)) {
+						throw new Error("Personaje repetido");
 					} else {
 						setCharacters((oldChars) => [...oldChars, data]);
 					}
-				else {
-					alert("No hay personajes con ese ID");
+				} else {
+					throw new Error("No hay personajes con ese ID");
 				}
 			})
 			.catch((error) => {
-				console.error('Error:', error);
+				alert(error.message);
 			});
 	};
+	
 
 	const onClose = (id) => {
 		setCharacters(characters.filter((char) => char.id !== id));

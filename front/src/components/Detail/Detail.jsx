@@ -12,16 +12,15 @@ export const Detail = () => {
 		// const KEY = "7a644210607c.971278a39c02b9832700";
 		// fetch(`${URL_BASE}/character/${detailId}?key=${KEY}`)
 		fetch(`https://api-rickandmorty.up.railway.app/rickandmorty/detail/${detailId}`)
+		// fetch(`http://localhost:3002/rickandmorty/detail/${detailId}`)
 			.then((response) => response.json())
 			.then((char) => {
 				if (char.name) {
 					setCharacter(char);
-				} else {
-					window.alert("No hay personajes con ese ID");
 				}
 			})
 			.catch((err) => {
-				window.alert("No hay personajes con ese ID");
+				window.alert("Algo salio mal con el servidor");
 			});
 		return setCharacter({});
 	}, [detailId]);
